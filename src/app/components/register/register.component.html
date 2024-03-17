@@ -1,18 +1,24 @@
 
-<section class="bg-gray-50 dark:bg-gray-900">
+<section class="bg-gray-50 dark:bg-gray-900" style="height: 800px">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <!-- CONTENT -->
       <div
-        class="w-full bg-white rounded-lg shadow dark:border md:mt-16 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        class="w-full bg-white rounded-lg shadow dark:border md:mt-24 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          <h1 class="text-xl ml-auto font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Log in to your account
           </h1>
           <form [formGroup]="applyForm" class="space-y-4 md:space-y-6" action="#">
             <div>
-              <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Image</label>
-              <input type="file" name="image" id="image" (change)="submit($event)"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-20 border-1 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <div class="flex flex-col items-center justify-center pt-1">
+                    <svg class="w-4 h-4 mb-1 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                    </svg>
+                    <p class="mb-1 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                </div>
+                <input id="dropzone-file" type="file" (change)="submit($event)" class="hidden" />
+            </label>
             </div>
             <div>
               <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Name</label>
@@ -32,8 +38,8 @@
                 placeholder="••••••••" formControlName="password"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required>
-              <button type="button" class="absolute inset-y-0 flex items-center px-2 mt-6"
-                (click)="togglePasswordVisibility()" style="top: 365px; right: 440px;">
+              <button type="button" class="absolute inset-y-0 flex items-center px-2"
+                (click)="togglePasswordVisibility()" style="top: 510px; right: 440px; height: 40px;">
                 <svg *ngIf="passwordVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                   stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -53,8 +59,8 @@
                 placeholder="••••••••" formControlName="resetpassword"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required>
-              <button type="button" class="absolute inset-y-0 flex items-center px-2 mt-6"
-                (click)="toggleResetPasswordVisibility()" style="top: 555px; right: 440px;">
+              <button type="button" class="absolute inset-y-0 flex items-center px-2"
+                (click)="toggleResetPasswordVisibility()" style="top: 604px; right: 440px; height: 40px;">
                 <svg *ngIf="resetPasswordVisible" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                   stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -78,7 +84,7 @@
                 Up</button>
             </a>  
             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-              You Already have Account? <a href="/profile/log-in"
+              You Already have An Account? <a href="/profile/log-in"
                 class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a>
             </p>
           </form>

@@ -30,7 +30,7 @@ export class CreateNewComponent implements OnInit{
       this.showMessage('First You have to sign in');
       setTimeout(() => { 
         this.router.navigateByUrl('/profile/log-in')
-      }, 2500);
+      }, 4000);
     }
     if(this.authService.currentUser)  {
       this.visibleSection = true
@@ -69,7 +69,7 @@ export class CreateNewComponent implements OnInit{
   } 
   showMessage(message: string): void {
     this.snackBar.open(message, ' ', {
-      duration: 2000, // Duration in milliseconds
+      duration: 3500, // Duration in milliseconds
     });
   }
 }
