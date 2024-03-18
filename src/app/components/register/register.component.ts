@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Auth, sendEmailVerification } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
-import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, getStorage, updateMetadata  } from 'firebase/storage';
 
 @Component({
   selector: 'app-register',
@@ -58,10 +58,10 @@ export class RegisterComponent {
           console.log('Check Email')
         })
         console.log("GO TO PROFILE");
-        this.updateProfile(this.imageUrl)
         this.router.navigateByUrl('/profile');
       },
       error: (err) => {
+        this.router.navigateByUrl('/profile/register')
         this.errorMessage = err.code;
       }
     })

@@ -3,7 +3,7 @@
     <div *ngIf="this.authService.currentUser" class="bg-white overflow-hidden shadow rounded-lg border">
       <!-- IMAGE -->
       <div class="px-4 py-5 sm:px-6">
-        <div class="flex justify-center">
+        <div class="flex justify-center relative">
           @if (photoUrl == null) {
           <div *ngIf="!loadingpage"
             class="w-96 h-96 object-center rounded-full bg-gray-400 absolute top-auto left-auto">
@@ -37,9 +37,20 @@
               </div>
             </div>
           </label>
-          <input id="dropzone-file" type="file" (change)="submit($event)" class="hidden" />
+          <input id="dropzone-file" type="file" (change)="submit($event)" class="hidden"/>
           }
           @if (photoUrl != null) {
+            <label for="dropzone-file" class="absolute top-2 right-0">
+              <div class="relative group w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 group form-checkbox">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                </svg>
+                <span
+                class="opacity-0 text-gray-500 absolute top-0 w-full h-full flex justify-center items-center text-sm group-hover:opacity-100 transition-opacity duration-300 -mt-6">
+                change IMG</span>
+              </div>
+            </label>
+            <input id="dropzone-file" type="file" (change)="submit($event)" class="hidden"/>
           <img class="w-96 h-96 object-center rounded-full" alt="hero" [src]="photoUrl">
           }
         </div>

@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, getStorage, deleteObject } from 'firebase/storage';
 
 @Component({
   selector: 'app-profile',
@@ -119,6 +119,7 @@ export class ProfileComponent implements OnInit {
   }
 
   submit(event: any) {
+    if(!this.authService.currentUser?.photoURL){
     const path = this.authService.currentUser?.uid
     const file = event.target.files[0]
     if (file) {
@@ -136,6 +137,35 @@ export class ProfileComponent implements OnInit {
         console.error('Error uploading file:', error);
       });
     }
+  }
+  if(this.authService.currentUser?.photoURL) {
+    // First Delete current IMG
+    const desertRef = ref(this.storage, this.authService.currentUser.uid.toString());
+    deleteObject(desertRef).then(() => {
+      console.log('Last IMG Deleted');
+    }).catch((error) => {
+      console.log('Deleting IMG Error: ', error)
+    })
+    setTimeout(() => {
+      const path = this.authService.currentUser?.uid
+      const file = event.target.files[0]
+      if (file) {
+        const storageRef = ref(this.storage, '/' + path);
+        uploadBytes(storageRef, file).then((snapshot) => {
+          this.router.navigateByUrl('/')
+          getDownloadURL(storageRef).then((url) => {
+            this.imageUrl = url
+            this.updateProfileImg(url);
+            this.router.navigateByUrl('/profile')
+          }).catch((error) => {
+            console.error('Error getting download URL:', error);
+          });
+        }).catch((error) => {
+          console.error('Error uploading file:', error);
+        });
+      }
+    }, 2000)
+  }
   }
 
   updateProfileImg(URL: string): void {
