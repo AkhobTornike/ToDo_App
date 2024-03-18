@@ -6,7 +6,6 @@ import { TodoInterface } from '../../types/todoInterface';
 import { TodosComponent } from '../todos/todos.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-finished',
@@ -23,29 +22,14 @@ export class FinishedComponent {
   authService = inject(AuthService)
   router = inject(Router)
 
-  constructor(private todosService: TodosService, private todosFirebaseService: TodosFirebaseService, private snackBar: MatSnackBar) { }
+  constructor(private todosService: TodosService, private todosFirebaseService: TodosFirebaseService) { }
 
   ngOnInit(): void {
-    if(!this.authService.currentUser){
-      // window.postMessage('First You have to sign in')
-      this.showMessage('First You have to sign in');
-      setTimeout(() => { 
-        this.router.navigateByUrl('/profile/log-in')
-      }, 4000);
-    }
-    if(this.authService.currentUser)  {
-      this.visibleSection = true
+    this.visibleSection = true
 
     this.todosFirebaseService.getTodos().subscribe((todos) => {
       this.todos = todos.filter(todo => todo.done && todo.onGoing && this.authService.currentUser?.uid == todo.userUID);
       this.todosType = 'finished'
     })
-  }
-  }
-  
-  showMessage(message: string): void {
-    this.snackBar.open(message, ' ', {
-      duration: 3500, // Duration in milliseconds
-    });
   }
 }

@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { 
+import {
   Firestore,
   collection,
   collectionData
- } from '@angular/fire/firestore';
+} from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { TodoInterface } from '../types/todoInterface';
 import { addDoc, deleteDoc, doc, setDoc } from 'firebase/firestore';

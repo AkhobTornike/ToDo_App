@@ -29,7 +29,6 @@ export class ResetPasswordComponent {
       email!
     ).subscribe({
       next: () => {
-        console.log('reset pasword from reset-password.component')
         this.errorMessage = "Check Your Email";
       },
       error: (err) => {

@@ -108,18 +108,6 @@ export class AuthService {
     return from(promise)
   }
 
-  resetEmail(email: string, user: User): Observable<void> {
-    console.log(email);
-    console.log(user);
-    const promise = updateEmail(user, email).then(() => {
-      console.log('password Updated(from auth.service)');
-    }).catch((error) => {
-      console.log('error(from auth.service resetEmail)', error.code);
-    })
-
-    return from(promise)
-  }
-
   updateProfile(username: string, url: string, user: User): Observable<void> {
     const promise = updateProfile(user, {
       displayName: username,

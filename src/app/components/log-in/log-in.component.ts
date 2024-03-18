@@ -22,7 +22,7 @@ export class LogInComponent {
   applyForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
-  })  
+  })
 
   logInApplication() {
     const rowForm = this.applyForm.getRawValue();

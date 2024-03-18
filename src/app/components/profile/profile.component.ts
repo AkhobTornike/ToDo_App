@@ -12,29 +12,26 @@ import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
   authService = inject(AuthService);
   router = inject(Router)
   storage = getStorage();
 
   photoUrl: string | null = null
   loadingpage: boolean = false;
+  loading: boolean = true;
   errorMessage: string | null = null;
-  emailInputVissible: boolean = false;
   usernameInputVissible: boolean = false;
   imageUrl: string = '';
 
 
-  constructor() {
-
-  }
+  constructor() { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.loading = false;
+    }, 5000)
     this.authService.user$.subscribe((user) => {
-    if(!this.authService.currentUserSig()) {
-      this.router.navigateByUrl('/profile/log-in')
-      return
-    }
       if (user) {
         this.authService.currentUserSig.set({
           email: user.email!,
@@ -45,10 +42,10 @@ export class ProfileComponent implements OnInit{
       }
       this.photoUrl = this.authService.currentUser?.photoURL!
     })
-    setTimeout(() => { 
+    setTimeout(() => {
       this.loadingpage = true;
     }, 5000);
-    
+
   }
 
   logOut(): void {
@@ -75,20 +72,10 @@ export class ProfileComponent implements OnInit{
     username: new FormControl('', [Validators.required]),
   })
 
-  // May Be Don't Need
-  showEmailInputer() {
-    if(!this.emailInputVissible) {
-      this.emailInputVissible = true
-    }else if (this.emailInputVissible) {
-      this.changeEmailApplication()
-      this.emailInputVissible = false
-    }
-  }
-
   showUsernameInputer() {
-    if(!this.usernameInputVissible){
+    if (!this.usernameInputVissible) {
       this.usernameInputVissible = true
-    }else if (this.usernameInputVissible){
+    } else if (this.usernameInputVissible) {
       this.changeUsernameApplication()
       this.usernameInputVissible = false
       window.location.reload();
@@ -112,27 +99,6 @@ export class ProfileComponent implements OnInit{
         this.errorMessage = err.code;
       }
     })
-  }
-
-  // May Be Not Working
-  changeEmailApplication(): void {
-    const user = this.authService.currentUser
-    const email = this.emailForm.getRawValue().email;
-    
-    if(!user) {
-      this.errorMessage = "Please Fill the values";
-    }
-
-    this.authService.resetEmail(
-      email !,
-      user !
-      ).subscribe({
-        next: () => {
-        },
-        error: (err) => {
-          this.errorMessage = err.code;
-        }
-      });
   }
 
   changeUsernameApplication(): void {
@@ -163,7 +129,6 @@ export class ProfileComponent implements OnInit{
           this.imageUrl = url
           this.updateProfileImg(url);
           this.router.navigateByUrl('/profile')
-          // Here you can do whatever you need with the URL, such as saving it to a database or displaying it
         }).catch((error) => {
           console.error('Error getting download URL:', error);
         });
@@ -179,9 +144,9 @@ export class ProfileComponent implements OnInit{
     const user = this.authService.currentUser
 
     this.authService.updateProfile(
-      username !,
-      url !,
-      user !
+      username!,
+      url!,
+      user!
     ).subscribe({
       next: () => {
       },

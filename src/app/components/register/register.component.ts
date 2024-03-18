@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Auth, sendEmailVerification } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
-import { ref, uploadBytes, listAll, getDownloadURL, getStorage } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 
 @Component({
   selector: 'app-register',
@@ -22,11 +22,9 @@ export class RegisterComponent {
 
   storage = getStorage();
 
-  images: string[] = [];
-  imageUrls: string[] = [];
   imageUrl: string = ''
 
-  constructor() {}
+  constructor() { }
 
   applyForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -45,7 +43,7 @@ export class RegisterComponent {
       return;
     }
 
-    if(rowForm.password != rowForm.resetpassword) {
+    if (rowForm.password != rowForm.resetpassword) {
       this.errorMessage = "passwords don't match";
       return;
     }
@@ -55,7 +53,7 @@ export class RegisterComponent {
       rowForm.username!,
       rowForm.password!
     ).subscribe({
-      next: () => {        
+      next: () => {
         sendEmailVerification(this.firebaseAuth.currentUser!).then(() => {
           console.log('Check Email')
         })
@@ -95,9 +93,9 @@ export class RegisterComponent {
     const user = this.authService.currentUser
 
     this.authService.updateProfile(
-      username !,
-      url !,
-      user !
+      username!,
+      url!,
+      user!
     ).subscribe({
       next: () => {
         console.log('User Profile Updated With ImgUrl');
